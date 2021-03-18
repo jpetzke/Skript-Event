@@ -1,0 +1,68 @@
+# events
+# created by JonasXdev
+# https://github.com/JonasXdev
+
+command /eventcreate <string>:
+    permission: event.host
+    trigger:
+        if {event::location} is not set:
+            set {event::location} to player's location
+            set {event::name} to arg-1
+            set {event::host} to player
+            set {event::pricename} to name of player's tool
+            set {event::price} to player's tool
+            remove player's tool from player's inventory
+            send "&aCreated &c%{event::name}% &aat &c%{event::location}% &awith price &c%{event::pricename}%"
+        
+        else:
+            send "&cThere already is an event running!"
+
+
+command /eventannounce:
+    permission: event.host
+    trigger:
+        if {event::location} is set:
+            broadcast ""
+            broadcast ""
+            broadcast "&6&l%{event::host}% &cis hosting a &a&l%{event::name}% &cEvent!"
+            broadcast "&cDo &e&l/event &cto win &6&l%{event::pricename}%"
+            broadcast ""
+            broadcast ""
+        else:
+            send "&cThere is no event to announce!"
+
+
+command /eventdelete :
+    permission: event.host
+    trigger:
+        if {event::location} is set:
+            delete {event::*}
+            send "&aEvent deleted!"
+
+        else:
+            send "&cThere is no event to end!"
+
+command /eventend <player>:
+    permission: event.host
+    trigger:
+        if {event::location} is set:
+            broadcast ""
+            broadcast "&cThe &c&l%{event::name}% &cEvent has ended!"
+            broadcast "&cWinner of &6&l%{event::pricename}%&c is &a&l%arg-1%"
+            broadcast ""
+            give {event::price} to arg-1
+            delete {event::*}
+
+        else:
+            send "&cThere is no event to end!"
+
+
+command /event:
+    trigger:
+        if {event::location} is set:
+            teleport player to {event::location}
+            send "&aTeleported to event!"
+
+        else:
+            send "&cThere is no event running!"
+    
