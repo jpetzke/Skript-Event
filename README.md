@@ -12,4 +12,4 @@ Delete Event silent:          /eventdelete      #deletes the event silently
 
 End the event and set winner: /eventend         #winner gets price
 
-teleport to event:            /event            #yeah
+teleport to event:            /event            
