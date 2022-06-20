@@ -1,7 +1,3 @@
-# events
-# created by JonasXdev
-# https://github.com/JonasXdev
-
 command /eventcreate <string>:
     permission: event.host
     trigger:
